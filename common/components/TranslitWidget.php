@@ -1,7 +1,6 @@
 <?php
 namespace common\components;
 
-use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
