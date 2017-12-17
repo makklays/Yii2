@@ -15,6 +15,7 @@ use yii\helpers\Html;
  * echo TranslitWidget::widget(['url' => $title]); // выведет: zagolovok-novosti
  *
  * @package common\components
+ * @author Alexander Kuziv <makklays@gmail.com>
  */
 class TranslitWidget extends Widget
 {
