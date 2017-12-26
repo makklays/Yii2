@@ -6,12 +6,20 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\base\Widget;
 
+/**
+ * Class MostComments - Самые комментируемые
+ * @package common\components
+ */
 class MostComments extends Widget
 {
     protected $views;
     protected $comments;
     public $countItem = 3;
 
+    /**
+     * Получаем данные
+     * @throws \yii\db\Exception
+     */
     public function init()
     {
         // DAO (Database Access Objects) — объекты доступа к базам данным
@@ -28,6 +36,10 @@ class MostComments extends Widget
             LIMIT :count ', [':count' => $this->countItem])->queryAll();
     }
 
+    /**
+     * Отображаем данные
+     * @return string|void
+     */
     public function run()
     {
         echo '<div class="">';
