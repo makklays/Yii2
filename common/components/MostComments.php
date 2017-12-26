@@ -7,7 +7,7 @@ use yii\helpers\Url;
 use yii\base\Widget;
 
 /**
- * Class MostComments - Самые комментируемые
+ * Class MostComments - Widget для отображения блока Самые комментируемые (посты)
  * @package common\components
  */
 class MostComments extends Widget
