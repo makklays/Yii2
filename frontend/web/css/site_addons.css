@@ -1,0 +1,18 @@
+
+html,
+body {
+    height: 100%;
+    /* --- add my fonts into web/fonts/*.ttf --- */
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* ---- slider ------ */
+
+.slider-images {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.slider-images img {
+    height: 100px;
+}
