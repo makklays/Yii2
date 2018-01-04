@@ -2,7 +2,7 @@
 html,
 body {
     height: 100%;
-    /* --- add my fonts into web/fonts/*.ttf --- */
+    /* --- add my fonts into frontend/web/fonts/*.ttf --- */
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
