@@ -1,0 +1,23 @@
+/* --- Add fonts --- */
+/* Menlo, Monaco, Consolas */
+
+@font-face {
+    font-family: 'Menlo';
+    src: url('../fonts/Menlo-Regular.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Monaco';
+    src: url('../fonts/Monaco.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Consolas';
+    src: url('../fonts/consola.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
