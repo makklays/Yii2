@@ -9,6 +9,7 @@ $this->title = 'Create Post';
 $this->params['breadcrumbs'][] = ['label' => 'Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+// empty $items
 $items = [];
 ?>
 <div class="post-create">
