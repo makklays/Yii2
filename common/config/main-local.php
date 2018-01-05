@@ -13,13 +13,13 @@ return [
             'viewPath' => '@common/mail',
         ],
         'echo' => [
-            'class' => 'common\components\EchoPrint',
+            'class' => 'common\components\EchoPrint', // print_r() для данных 
         ],
         'ReadHttpHeader' => [
-            'class' => 'common\components\ReadHttpHeader',
+            'class' => 'common\components\ReadHttpHeader', // определяет RealIP
         ],
         'slug' => [
-            'class' => 'common\components\Slug',
+            'class' => 'common\components\Slug', // транслитерация строки
         ],
     ],
 ];
