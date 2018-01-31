@@ -13,6 +13,12 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'sourceLanguage' => 'en',
     'language' => 'en',
+    'aliases' => [
+        '@imgs' => '/imgs/',
+        //'@name2' => 'path/to/path2',
+    ],
+    //'catchAll' => ['site/offline'], // отображает одно информационное сообщение для всех запросов
+    //'defaultRoute' => 'post/index', // по умолчанию site/index, указываем свое значение
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
