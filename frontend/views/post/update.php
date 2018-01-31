@@ -12,16 +12,17 @@ use dosamigos\gallery\Gallery;
 
 use yii\helpers\ArrayHelper;
 use backend\models\Category;
+use dosamigos\ckeditor\CKEditor;
+use dosamigos\tinymce\TinyMce;
+use yii\imperavi;
 
-
-$this->title = 'Update Post';
-$this->params['breadcrumbs'][] = ['label' => 'All posts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'My posts', 'url' => ['my']];
+$this->title = Yii::t('main', 'Update Post');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('main','All posts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('main','My posts'), 'url' => ['my']];
 $this->params['breadcrumbs'][] = Html::encode($model->title);
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-
 <div class="post-form">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -30,17 +31,43 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'title')->textInput(['maxLength' => 100]) ?>
 
+    <?= $form->field($model, 'slug')->textInput(['maxLength' => 100]) ?>
+
     <?= $form->field($model, 'short_descr')->textarea(['rows' => 5]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 10]) ?>
+    <!--?= $form->field($model, 'description')->textarea(['rows' => 10]) ?-->
+
+    <!-- $form->field($model, 'description')->widget(TinyMce::className(), [
+        'options' => ['rows' => 20],
+        'language' => 'ru',
+        'clientOptions' => [
+            'plugins' => [
+                "advlist autolink lists link charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        ]
+    ]); -->
+
+    <!--?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'options' => ['rows' => 10],
+        //'preset' => 'basic',
+        'preset' => 'full',
+        //'inline' => false,
+        'clientOptions' => ['language' => 'ru'],
+        //'clientOptions' => ['extraPlugins' => 'codesnippet']
+    ]); ?-->
+
+    <?= $form->field($model, 'description')->textarea(['rows' => 20]); ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
         ArrayHelper::map(Category::find()->where(['is_active' => '1'])->orderBy(['title' => 'ASC'])->asArray()->all(), 'id', 'title'),
-        ['prompt' => 'Select category']
+        ['prompt' => Yii::t('main','Select category')]
     ); ?>
 
     <div class="form-group field-post-title">
-        <label class="control-label" for="tags">Tags</label>
+        <label class="control-label" for="tags"><?=Yii::t('main', 'Tags')?></label>
         <input type="text" id="tags" name="tags" value="<?=$tags?>" class="form-control" />
     </div>
 
@@ -70,9 +97,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <br/>
 
     <div class="form-group">
-        <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('main', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$js = <<<JS
+    CKEDITOR.replace( 'Post[description]', {
+        //options: {rows: 20},
+        //preset: 'basic',
+        preset: 'full',
+        language: 'ru',
+        //toolbarCanCollapse: true,
+        //uiColor: '#AADC6E',
+        extraPlugins: 'codesnippet',
+        codeSnippet_theme: 'monokai_sublime'
+    });
+    CKEDITOR.config.codeSnippet_languages = {
+        javascript: 'JavaScript',
+        php: 'PHP'
+    };
+    
+    
+JS;
+$this->registerJs($js);
+?>
