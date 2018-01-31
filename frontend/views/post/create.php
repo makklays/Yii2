@@ -10,10 +10,12 @@ use dosamigos\gallery\Gallery;
 
 use yii\helpers\ArrayHelper;
 use backend\models\Category;
+use dosamigos\ckeditor\CKEditor;
+use dosamigos\tinymce\TinyMce;
 
-$this->title = 'Create Post';
-$this->params['breadcrumbs'][] = ['label' => 'All posts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'My posts', 'url' => ['my']];
+$this->title = Yii::t('main','Create Post');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('main','All posts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('main','My posts'), 'url' => ['my']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $items = [];
@@ -26,17 +28,41 @@ $items = [];
 
     <?= $form->field($model, 'title')->textInput(['maxLength' => 100]) ?>
 
+    <?= $form->field($model, 'slug')->textInput(['maxLength' => 100]) ?>
+
     <?= $form->field($model, 'short_descr')->textarea(['rows' => 5]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 10]) ?>
 
+    <!--?= $form->field($model, 'description')->widget(TinyMce::className(), [
+        'options' => ['rows' => 20],
+        'language' => 'ru',
+        'clientOptions' => [
+            'plugins' => [
+                "advlist autolink lists link charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        ]
+    ]); ?-->
+
+    <!-- $form->field($model, 'description')->widget(CKEditor::className(), [
+        'preset' => 'basic',
+        //'preset' => 'full',
+        //'preset' => 'basic',
+        //'clientOptions' => [
+        //    'filebrowserUploadUrl' => 'ckeditor/url'
+        //]
+    ]); -->
+
     <?= $form->field($model, 'category_id')->dropDownList(
         ArrayHelper::map(Category::find()->where(['is_active' => '1'])->orderBy(['title' => 'ASC'])->asArray()->all(), 'id', 'title'),
-        ['prompt' => 'Select category']
+        ['prompt' => Yii::t('main','Select category')]
     ); ?>
 
     <div class="form-group field-post-title">
-        <label class="control-label" for="tags">Tags</label>
+        <label class="control-label" for="tags"><?=Yii::t('main','Tags')?></label>
         <input type="text" id="tags" name="tags" value="" class="form-control" />
     </div>
 
@@ -60,9 +86,37 @@ $items = [];
     <br/>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('main','Create'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$js = <<<JS
+    CKEDITOR.replace( 'Post[description]', {
+        //preset: 'basic',
+        //language: 'ru',
+        //toolbarCanCollapse: true,
+        //uiColor: '#AADC6E',
+        extraPlugins: 'codesnippet',
+        codeSnippet_theme: 'monokai_sublime'
+    });
+    CKEDITOR.config.codeSnippet_languages = {
+        javascript: 'JavaScript',
+        php: 'PHP'
+    };
+JS;
+$this->registerJs($js);
+?>
+
+
+<!-- без ActiveForm -->
+<!--
+<form method="POST">
+    <input id="form-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>" value="<?=Yii::$app->request->csrfToken?>"/>
+
+    <input type="submit" value="ok!">
+</form>
+-->
