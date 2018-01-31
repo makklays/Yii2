@@ -1,10 +1,12 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\TagSearch */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="tag-search">
