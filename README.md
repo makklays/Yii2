@@ -1,1 +1,2 @@
+"Snippet code"
 "# Yii2" 
