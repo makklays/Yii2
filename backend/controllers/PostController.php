@@ -14,6 +14,9 @@ use backend\models\PostForm;
 
 /**
  * PostController implements the CRUD actions for Post model.
+ *
+ * @author Alexander Kuziv <makklays@gmail.com>
+ * @package frontend\controllers
  */
 class PostController extends Controller
 {
